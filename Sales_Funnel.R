@@ -1,3 +1,7 @@
+library(dplyr)
+library(graphics)
+library(RColorBrewer)
+
 sales_funnel<-function(b, theta, h, phases){
   n = length(h)
   h = h/sum(h)
