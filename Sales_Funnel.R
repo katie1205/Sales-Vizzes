@@ -2,28 +2,26 @@
 library(RColorBrewer) #for color palettes
 library(graphics)  #for plotting polygons
 
-
-#Defining sales_funnel function:
-sales_funnel <- function(b, theta, v, phases, FirstIsRed){
+#Defining sales funnel function
+sales_funnel <- function(b = 2.5, v, phases, theta = pi/3,FirstIsRed= TRUE, color = colz){
     n = length(v)
-    h = 10 * v / sum(v)
-    colz = brewer.pal(ifelse(n > 2, n, 3), name = "YlGn") 
+    h = v / sum(v)
+    colz = brewer.pal(ifelse(n > 2, n, 3), name = "YlGn") #sets color pallette sections equal to the number of phases if there are more than 2 phases and sets it to three otherwise so that brewer.pal does not return an error 
     colz = c(ifelse(FirstIsRed == TRUE, "Red", colz[1]), c(colz[2:n])) #If the user specified FirstIsRed = True, then the first pahse is red. All other phases are colored (ordered by index) from the yellow-green spectrum
-    x = c(0, h[1] / tan(theta), b + h[1] / tan(theta), b + 2 * h[1] / tan(theta))
-    y = c(0, h[1], h[1], 0)
-    plot.new()
-    plot.window(xlim = c(-b / 2 - 1, b + b + 1), ylim = c(-10.5, 0.2))
-    polygon(x, - y, col = colz[1], lty = 1, lwd = 2, border = "black")
-    for (i in c(2:n)) {
-        x = c(x[2], x[2] + h[i] / tan(theta), x[4] - h[i - 1] / tan(theta) - h[i] / tan(theta), x[4] - h[i - 1] / tan(theta))
+    x = c(0, 0, b, 0) #sets starting point/ intializes vector x (x-coordinates of each section) 
+    y = c(0, 0,0,0) #sets starting point/ intializes vector y (y-coordinates of each section) 
+    plot.new() #sets up plot window
+    plot.window(xlim = c(-0.5*b, 2*b), ylim = c(-1.5, 0.3))
+    polygon(x, - y, col = colz[1], lty = 1, lwd = 2, border = "black") #plot polygon with vertices (x,-y) <-- note: y is negative because we want to flip the funnel
+    for (i in c(1:n)) {  #plots each section iteratively, stacking them on top of each other
+        x = c(x[2], x[2] + h[i] / tan(theta), x[3]- h[i]/tan(theta), x[3])
         y = c(y[2], y[2] + h[i], y[2] + h[i], y[2])
         polygon(x, - y, col = colz[i], lty = 1, lwd = 2, border = "black")
     }
     x = c(x[2], x[2], x[3], x[3])
-    y = c(y[2], y[2] + h[n] + 0.5, y[2] + h[n] + 0.5, y[2])
+    y = c(y[2], y[2] + h[n] + 0.05, y[2] + h[n] + 0.05, y[2])
     polygon(x, - y, col = colz[n], lty = 1, lwd = 2, border = "black")
 }
-
 
 #An Example:
 sales_funnel(10, pi/3, v = c(10000000, 5000000, 7000000,4500000, 5000000), phases = c("Past Due", "Close", "Qualify", "Contact", "Lead"), FirstIsRed = TRUE)
