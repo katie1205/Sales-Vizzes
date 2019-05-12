@@ -10,7 +10,12 @@ The **SalesVizWiz Package** will enable analysts and developers to effortlessly 
 Given a vector of sales performance indicator values aggregated by sales phase, this vizz constructs a dynamic sales performance funnel wherein the relative indicator value of each phase is encoded by the section's *height*. Unlike the out-of-the-box PBI sales funnel, which encodes values by width, this viz appears more sleek and "funnel-like". 
 
 #### R function
-sales_funnel(p, v, sort, FirstIsRed=True, b = 10, theta = pi/3)
+##### Description
+Sales_Funnel draws a sales funnel by iteratively stacking trazoids such that the height of each trapezoid is proportional to an element of the given vector v. Each trapezoid represents the ith phase in a process with a value equal to the ith element of v, and a legend is also drawn to label each phase by color. The polygon function from the graphics package is called to construct each trapezoid based on the coordinates of its vertices, which are determined based on the base angle theta, base length b, and the height which is proportional to elements in the given vector v. Each phase is assigned the default name "phase i" and is filled using the ith color in the default red-yellow-green palette. The user can optionally specify an alternative color pallette and a vector of phase names. The shape of the trapezoid can also be customized by specifying the length of the base, b, of the widest section, and the base angle, theta, in radians. The base length and angle default to 2.5 and pi/3 radians (60 degrees) respectively. 
+
+##### Usage
+Sales_Funnel(v, b = 2.5, phases = sapply(v, FUN= function(x)paste0("phase ", which(v==v)))[,1], theta = pi / 3, FirstIsRed = TRUE, color = brewer.pal(ifelse(length(v) > 2, length(v), 3), name = "YlGn"))
+
 
 #### Power BI
 In Power BI, the function will be contained within a custom visualization that 
