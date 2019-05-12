@@ -11,11 +11,32 @@ Given a vector of sales performance indicator values aggregated by sales phase, 
 
 #### R function
 ##### Description
-Sales_Funnel draws a sales funnel by iteratively stacking trazoids such that the height of each trapezoid is proportional to an element of the given vector v. Each trapezoid represents the ith phase in a process with a value equal to the ith element of v, and a legend is also drawn to label each phase by color. The polygon function from the graphics package is called to construct each trapezoid based on the coordinates of its vertices, which are determined based on the base angle theta, base length b, and the height which is proportional to elements in the given vector v. Each phase is assigned the default name "phase i" and is filled using the ith color in the default red-yellow-green palette. The user can optionally specify an alternative color pallette and a vector of phase names. The shape of the trapezoid can also be customized by specifying the length of the base, b, of the widest section, and the base angle, theta, in radians. The base length and angle default to 2.5 and pi/3 radians (60 degrees) respectively. 
+Sales_Funnel draws a sales funnel by iteratively stacking trazoids such that the height of each trapezoid is proportional to an element of the given vector v. Each trapezoid represents the ith phase in a process with a value equal to the ith element of v. A legend is also drawn to label each phase by color. 
 
 ##### Usage
 Sales_Funnel(v, b = 2.5, phases = sapply(v, FUN= function(x)paste0("phase ", which(v==v)))[,1], theta = pi / 3, FirstIsRed = TRUE, color = brewer.pal(ifelse(length(v) > 2, length(v), 3), name = "YlGn"))
 
+##### Arguments
+v
+  A vector containing the aggregate (eg total) values for each phase in a process arranged in order; determines relative height of each trapezoid/funnel section. The length of v must be between 2 and 10.
+  
+b
+  A scalar giving the length of the base of the section for the first phase; defaults to 2.5
+  
+theta
+  The base angles, in radians, of each trapezoidal section; defaults to pi/3 radians (60 degrees). Note that all base angles are congruent to allow trapezoids to be stacked neatly.
+  
+phases
+  A vector of phase names for the legend labels; defaults to "phase i", where i are the indices of elements in v.
+  
+FirstIsRed
+  A logical vector indicating whether or not the first phase should be red, as is common for the "past due" phase in standard sales funnels; set to TRUE by default
+  
+color
+  A vector of colors to fill each trapezoidal phase section; defaults to yellow-green palette the same length as the given vector v. 
+  
+  
+ 
 
 #### Power BI
 In Power BI, the function will be contained within a custom visualization that 
