@@ -17,23 +17,17 @@ Sales_Funnel draws a sales funnel by iteratively stacking trazoids such that the
 Sales_Funnel(v, b = 2.5, phases = sapply(v, FUN= function(x)paste0("phase ", which(v==v)))[,1], theta = pi / 3, FirstIsRed = TRUE, color = brewer.pal(ifelse(length(v) > 2, length(v), 3), name = "YlGn"))
 
 ##### Arguments
-v
-  A vector containing the aggregate (eg total) values for each phase in a process arranged in order; determines relative height of each trapezoid/funnel section. The length of v must be between 2 and 10.
+v: A vector containing the aggregate (eg total) values for each phase in a process arranged in order; determines relative height of each trapezoid/funnel section. The length of v must be between 2 and 10.
   
-b
-  A scalar giving the length of the base of the section for the first phase; defaults to 2.5
+b: A scalar giving the length of the base of the section for the first phase; defaults to 2.5
   
-theta
-  The base angles, in radians, of each trapezoidal section; defaults to pi/3 radians (60 degrees). Note that all base angles are congruent to allow trapezoids to be stacked neatly.
+theta: The base angles, in radians, of each trapezoidal section; defaults to pi/3 radians (60 degrees). Note that all base angles are congruent to allow trapezoids to be stacked neatly.
   
-phases
-  A vector of phase names for the legend labels; defaults to "phase i", where i are the indices of elements in v.
+phases: A vector of phase names for the legend labels; defaults to "phase i", where i are the indices of elements in v.
   
-FirstIsRed
-  A logical vector indicating whether or not the first phase should be red, as is common for the "past due" phase in standard sales funnels; set to TRUE by default
+FirstIsRed: A logical vector indicating whether or not the first phase should be red, as is common for the "past due" phase in standard sales funnels; set to TRUE by default
   
-color
-  A vector of colors to fill each trapezoidal phase section; defaults to yellow-green palette the same length as the given vector v. 
+color: A vector of colors to fill each trapezoidal phase section; defaults to yellow-green palette the same length as the given vector v. 
   
   
  
