@@ -3,6 +3,7 @@ library(RColorBrewer) #for color palettes
 library(graphics)  #for plotting polygons
 
 
+
 library(RColorBrewer)
 library(graphics)
 
@@ -30,10 +31,10 @@ sales_funnel <- function(v, b = 2.5, phases = sapply(v, FUN= function(x)paste0("
 
 #An Example:
                                                      
-#with all defaults                                         
+#User only supplies mandatory values (to test defaults)                                    
 sales_funnel(v = c(10000000, 5000000, 7000000,4500000, 5000000))
                                                      
-#user supplies optional values
+#User supplies optional values
 sales_funnel(b=10, v = c(10000000, 5000000, 7000000,4500000, 5000000), phases = c("Past Due", "Close", "Qualify", "Contact", "Lead"), FirstIsRed = TRUE)
 
                                                      
