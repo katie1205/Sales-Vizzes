@@ -3,11 +3,7 @@ library(RColorBrewer) #for color palettes
 library(graphics)  #for plotting polygons
 
 
-
-library(RColorBrewer)
-library(graphics)
-
-
+#sales_funnel function:
 sales_funnel <- function(v, b = 2.5, phases = sapply(v, FUN= function(x)paste0("phase ", which(v==v)))[,1], theta = pi / 3, FirstIsRed = TRUE, color = brewer.pal(ifelse(length(v) > 2, length(v), 3), name = "YlGn")) {
     n = length(v)
     h = v / sum(v)
@@ -28,8 +24,7 @@ sales_funnel <- function(v, b = 2.5, phases = sapply(v, FUN= function(x)paste0("
     legend(-1.25*b, -0.25, legend = paste0(phases, ",       ", signif(h*100, digits = 4), "%"), cex = 0.7, fill = colz)
 }
 
-
-#An Example:
+#Examples:
                                                      
 #User only supplies mandatory values (to test defaults)                                    
 sales_funnel(v = c(10000000, 5000000, 7000000,4500000, 5000000))
