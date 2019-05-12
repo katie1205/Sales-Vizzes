@@ -2,18 +2,21 @@
 library(RColorBrewer) #for color palettes
 library(graphics)  #for plotting polygons
 
-#Defining sales funnel function
-sales_funnel <- function(b = 2.5, v, phases, theta = pi/3,FirstIsRed= TRUE, color = colz){
+
+library(RColorBrewer)
+library(graphics)
+
+
+sales_funnel <- function(v, b = 2.5, phases = sapply(v, FUN= function(x)paste0("phase ", which(v==v)))[,1], theta = pi / 3, FirstIsRed = TRUE, color = brewer.pal(ifelse(length(v) > 2, length(v), 3), name = "YlGn")) {
     n = length(v)
     h = v / sum(v)
-    colz = brewer.pal(ifelse(n > 2, n, 3), name = "YlGn") #sets color pallette sections equal to the number of phases if there are more than 2 phases and sets it to three otherwise so that brewer.pal does not return an error 
-    colz = c(ifelse(FirstIsRed == TRUE, "Red", colz[1]), c(colz[2:n])) #If the user specified FirstIsRed = True, then the first pahse is red. All other phases are colored (ordered by index) from the yellow-green spectrum
-    x = c(0, 0, b, 0) #sets starting point/ intializes vector x (x-coordinates of each section) 
-    y = c(0, 0,0,0) #sets starting point/ intializes vector y (y-coordinates of each section) 
-    plot.new() #sets up plot window
-    plot.window(xlim = c(-0.5*b, 2*b), ylim = c(-1.5, 0.3))
-    polygon(x, - y, col = colz[1], lty = 1, lwd = 2, border = "black") #plot polygon with vertices (x,-y) <-- note: y is negative because we want to flip the funnel
-    for (i in c(1:n)) {  #plots each section iteratively, stacking them on top of each other
+    colz = c(ifelse(FirstIsRed == TRUE, "Red", color[1]), c(color[2:n])) #If the user specified FirstIsRed = True, then the first pahse is red. All other phases are colored (ordered by index) from the yellow-green spectrum
+    x = c(0, 0, b, 0)
+    y = c(0, 0,0,0)
+    plot.new()
+    plot.window(xlim = c(-1.5*b, 1.5*b), ylim = c(-1.5, 0.3))
+    polygon(x, - y, col = colz[1], lty = 1, lwd = 2, border = "black")
+    for (i in c(1:n)) {
         x = c(x[2], x[2] + h[i] / tan(theta), x[3]- h[i]/tan(theta), x[3])
         y = c(y[2], y[2] + h[i], y[2] + h[i], y[2])
         polygon(x, - y, col = colz[i], lty = 1, lwd = 2, border = "black")
@@ -21,11 +24,19 @@ sales_funnel <- function(b = 2.5, v, phases, theta = pi/3,FirstIsRed= TRUE, colo
     x = c(x[2], x[2], x[3], x[3])
     y = c(y[2], y[2] + h[n] + 0.05, y[2] + h[n] + 0.05, y[2])
     polygon(x, - y, col = colz[n], lty = 1, lwd = 2, border = "black")
+    legend(-1.25*b, -0.25, legend = paste0(phases, ",       ", signif(h*100, digits = 4), "%"), cex = 0.7, fill = colz)
 }
 
-#An Example:
-sales_funnel(10, pi/3, v = c(10000000, 5000000, 7000000,4500000, 5000000), phases = c("Past Due", "Close", "Qualify", "Contact", "Lead"), FirstIsRed = TRUE)
 
+#An Example:
+                                                     
+#with all defaults                                         
+sales_funnel(v = c(10000000, 5000000, 7000000,4500000, 5000000))
+                                                     
+#user supplies optional values
+sales_funnel(b=10, v = c(10000000, 5000000, 7000000,4500000, 5000000), phases = c("Past Due", "Close", "Qualify", "Contact", "Lead"), FirstIsRed = TRUE)
+
+                                                     
 
 #Defining Sales_funnel_2, which calls the sales_funnel function 
 #This function addresses situations for which the sales funnel viz would either return an error or 
