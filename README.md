@@ -1,8 +1,8 @@
-# Sales-Vizzes 📊 📈 📉
+# Sales Vizzes 📊 📈 📉
 
 This will serve as the repository for script and documentation related to an R package and "out-of-the-box" Power BI custom vizzes I'm currently developing. 
 
-The **SalesVizWiz Package** will enable analysts and developers to effortlessly build sales visualizations to address a wide variety of business requirements. The package will include functions to generate highly customizable sales funnels, KPIs, donut charts, bar graphs, pareto charts, and time series plots. Custom Power BI visualizations featuring these functions will be deployed through the marketplace. With minimal preprocessing, functions can also stand alone. Exemplar use cases are detailed in the sections below along with pre-processing instructions and descriptions of the parameters.
+The **salesVizWiz Package** will enable analysts and developers to effortlessly build sales visualizations to address a wide variety of business requirements. The package will include functions to generate highly customizable sales funnels, KPIs, donut charts, bar graphs, pareto charts, and time series plots. Custom Power BI visualizations featuring these functions will be deployed through the marketplace. With minimal preprocessing, functions can also stand alone. Exemplar use cases are detailed in the sections below along with pre-processing instructions and descriptions of the parameters.
 
 ### Sales_Funnel
 
