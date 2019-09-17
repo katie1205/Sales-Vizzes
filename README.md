@@ -9,14 +9,18 @@ The **salesVizWiz Package** will enable analysts and developers to effortlessly 
 Given a vector of sales performance indicator values aggregated by sales phase, this vizz constructs a dynamic sales performance funnel wherein the relative indicator value of each phase is encoded by the section's *height*. Unlike the out-of-the-box PBI sales funnel, which encodes values by width, this viz appears more sleek and "funnel-like". 
 
 #### R function
+
 ##### Description
+
 Sales_Funnel draws a sales funnel by iteratively stacking trazoids such that the height of each trapezoid is proportional to an element of the given vector v. Each trapezoid represents the ith phase in a process with a value equal to the ith element of v. A legend is also drawn to label each phase by color. 
 
 ##### Usage
+
 Sales_Funnel(v, b = 2.5, phases = sapply(v, FUN= function(x)paste0("phase ", which(v==v)))[,1], theta = pi / 3, FirstIsRed = TRUE, color = brewer.pal(ifelse(length(v) > 2, length(v), 3), name = "YlGn"))
 
 ##### Arguments
- + v: A vector containing the aggregate values for each phase in a process arranged in order; determines relative height of each trapezoid/funnel section. The length of v must be between 2 and 10.
+
++ v: A vector containing the aggregate values for each phase in a process arranged in order; determines relative height of each trapezoid/funnel section. The length of v must be between 2 and 10.
   
  + b: A scalar giving the length of the base of the section for the first phase; defaults to 2.5
   
@@ -28,10 +32,6 @@ Sales_Funnel(v, b = 2.5, phases = sapply(v, FUN= function(x)paste0("phase ", whi
   
  + color: A vector of colors to fill each trapezoidal phase section; defaults to yellow-green palette the same length as the given vector v. 
 
-#### Power BI
-
-In Power BI, the function will be contained within a custom visualization that 
-
 ### Sales_Funnel2
 
-This function is a wrapper for sales_funnel that addresses instances for which a funnel visualization would not make sense. The function returns the sales funnel only when there are two or more non-null and positive valued sections. Otherwise, a message is returned.
+A wrapper for sales_funnel that displays the funnel if there is more than one non-null and positive-valued section. Otherwise, a message is returned.
